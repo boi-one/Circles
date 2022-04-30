@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    public GameObject bullet;
     public float speed;
+    bool bruh = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +17,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            
+        }
+
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
@@ -30,5 +38,9 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position += new Vector3(0, -speed, 0) * Time.deltaTime;
         }
+        Vector3 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos); //kijkt waar muis is
+        Vector2 Direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y); //draait de object waar dit script op zit
+        transform.up = Direction; //weet niet waarom dit up is maar alles word fucked als je position gebruikt
     }
 }
