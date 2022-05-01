@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
@@ -35,19 +36,23 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
+            //if (Physics2D.OverlapPointAll(transform.position + new Vector3(-speed, 0, 0) * Time.deltaTime).Any(c => c.name.StartsWith("Wall")) == false)
+                transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
+            //if (Physics2D.OverlapPointAll(transform.position + new Vector3(speed, 0, 0) * Time.deltaTime).Any(c => c.name.StartsWith("Wall")) == false)
+                transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += new Vector3(0, speed, 0) * Time.deltaTime;
+            //if (Physics2D.OverlapPointAll(transform.position + new Vector3(0, speed, 0) * Time.deltaTime).Any(c => c.name.StartsWith("Wall")) == false)
+                transform.position += new Vector3(0, speed, 0) * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += new Vector3(0, -speed, 0) * Time.deltaTime;
+            //if (Physics2D.OverlapPointAll(transform.position + new Vector3(0, -speed, 0) * Time.deltaTime).Any(c => c.name.StartsWith("Wall")) == false)
+                transform.position += new Vector3(0, -speed, 0) * Time.deltaTime;
         }
         Vector3 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos); //kijkt waar muis is
