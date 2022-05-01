@@ -5,8 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject bullet;
+    public Transform firepoint;
     public float speed;
-    bool bruh = true;
+    float lastShot;
+    public float cooldown;
+
+    bool bruh = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,11 +19,18 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            
+            if (Time.time - lastShot < cooldown)
+            {
+                return;
+            }
+            else 
+            {
+                GameObject Bullet = Instantiate(bullet, firepoint.position, firepoint.rotation);
+            }
         }
 
         if (Input.GetKey(KeyCode.A))
