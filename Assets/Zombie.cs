@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
+    public int hp = 6;
+
     List<GameObject> Players;
     void Start()
     {
@@ -39,6 +41,10 @@ public class Zombie : MonoBehaviour
         else
         {
 
+        }
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

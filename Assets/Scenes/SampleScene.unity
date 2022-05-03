@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 1050675932}
   - component: {fileID: 1050675936}
   - component: {fileID: 1050675935}
+  - component: {fileID: 1050675937}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -458,8 +459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25726d435b984ae41a84bfcc05c76f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletprefab: {fileID: 7188685701065991643, guid: bcc8c5a576761b244a2a81e0fb2fd8b7, type: 3}
-  firepoint: {fileID: 2002828297}
   speed: 5
 --- !u!212 &1050675933
 SpriteRenderer:
@@ -500,7 +499,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: eed26ef0dc3e7c247b726835a91eedfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -574,6 +573,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1050675937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050675931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8d02a4de25e3e41a57ad0ea7fa24da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0.5
+  bulletPrefab: {fileID: 7188685701065991643, guid: bcc8c5a576761b244a2a81e0fb2fd8b7, type: 3}
+  firepoint: {fileID: 2002828297}
+  bulletSpeed: 20
+  rb: {fileID: 1050675935}
 --- !u!1 &1280256005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3131,7 +3147,7 @@ GameObject:
   - component: {fileID: 1677900471}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3148,6 +3164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1226394e18c7e943b8f1c4b47989d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 10
 --- !u!212 &1677900469
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3187,7 +3204,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: bd95fd35e2ecd144fba2b2d6bb97d2fb, type: 3}
   m_Color: {r: 0.09271582, g: 0.6226415, b: 0.008810949, a: 1}
   m_FlipX: 0
@@ -3228,7 +3245,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
