@@ -10,6 +10,7 @@ public class Shooting : MonoBehaviour
     public Transform firepoint;
     public float bulletSpeed = 50;
     public Rigidbody2D rb;
+    public AudioSource gun;
 
     Vector2 dir;
     float angle;
@@ -43,5 +44,7 @@ public class Shooting : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firepoint.up * bulletSpeed, ForceMode2D.Impulse);
+        gun.Play();
+        
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="Assets\Shooting.cs" />
     <Compile Include="Assets\destroy.cs" />
     <Compile Include="Assets\Zombie.cs" />
+    <Compile Include="Assets\spawn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

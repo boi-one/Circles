@@ -33,12 +33,18 @@ public class destroy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Zombie")
+        if (other.name == "Zombie(Clone)")
         {
             Instantiate(blood);
             blood.transform.transform.position = transform.position;
             blood.transform.rotation = transform.rotation;
+            other.GetComponent<Zombie>().hp -= 2;
+            Destroy(gameObject);
+        }
+        if (other.name == "walls")
+        {
             Destroy(gameObject);
         }
     }
+    
 }
