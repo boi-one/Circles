@@ -34,7 +34,7 @@ public class Pathfinding : MonoBehaviour
     /// <param name="current">fe a zombies current position</param>
     /// <param name="end">the final destination, for example a zombies objective</param>
     /// <returns></returns>
-    public List<Vector3> GetWayPoints(Vector3 current, Vector3 end)
+    public static List<Vector3> GetWayPoints(Vector3 current, Vector3 end)
     {
         List<Vector3> available = WayPoints;
         List<Vector3> chosenPoints = new List<Vector3>();

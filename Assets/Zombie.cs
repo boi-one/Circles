@@ -6,7 +6,6 @@ using UnityEngine;
 public class Zombie : MonoBehaviour
 {
     public int hp = 6;
-    public AudioSource shot;
 
     List<GameObject> Players;
     void Start()
@@ -15,38 +14,95 @@ public class Zombie : MonoBehaviour
         Players = GameObject.FindObjectsOfType<GameObject>().Where(c => c.GetComponent<Player>() != null).ToList();
     }
 
+    Vector3 lastSeenPlayerLocation;
+    List<Vector3> path = new List<Vector3>();
     void Update()
     {
-        // find closest player
-        GameObject closest = null;
-        float closestDist = 999999;
-        foreach(GameObject c in Players)
+        // find closest player, that is visible
+        GameObject closest_visible_player = null;
+        float closest_visible_player_distance = 999999;
+        foreach (GameObject c in Players.Where(c => Pathfinding.CheckSight(transform.position, c.transform.position)))
         {
-            if (closest == null)
-                closest = c;
-            if (Vector3.Distance(transform.position, c.transform.position) <  closestDist)
+            if (closest_visible_player == null)
+                closest_visible_player = c;
+            if (Vector3.Distance(transform.position, c.transform.position) < closest_visible_player_distance)
             {
-                closest = c;
-                closestDist = Vector3.Distance(transform.position, c.transform.position);
+                closest_visible_player = c;
+                closest_visible_player_distance = Vector3.Distance(transform.position, c.transform.position);
+            }
+        }
+        // find any closest player
+        GameObject closest_any_player = null;
+        float closest_any_player_distance = 999999;
+        foreach (GameObject c in Players)
+        {
+            if (closest_any_player == null)
+                closest_any_player = c;
+            if (Vector3.Distance(transform.position, c.transform.position) < closest_any_player_distance)
+            {
+                closest_any_player = c;
+                closest_any_player_distance = Vector3.Distance(transform.position, c.transform.position);
             }
         }
 
-        // walk  towards closest player, if not close already
-        if (closestDist > 1.25f)
+
+
+        // if found a player that is visible
+        if (closest_visible_player == null == false)
+        {
+            lastSeenPlayerLocation = closest_visible_player.transform.position;
+            // walk  towards closest player, if not close already
+            if (closest_visible_player_distance > 1.25f)
+            {
+                float speed = 2;
+                Vector3 dir = (closest_visible_player.transform.position - transform.position).normalized;
+                transform.position += dir * speed * Time.deltaTime;
+            }
+            // otherwise deal damage to the player we're infront of
+            else
+            {
+                closest_visible_player.GetComponent<Player>().playerhp -= 2 * Time.deltaTime;
+            }
+        }
+        // we've seen a player somewhere but lost them      the value is set to 999 999 as a "null"
+        else if (lastSeenPlayerLocation == new Vector3(999, 999) == false)
         {
             float speed = 2;
-            Vector3 dir = (closest.transform.position - transform.position).normalized;
+            Vector3 dir = (lastSeenPlayerLocation - transform.position).normalized;
             transform.position += dir * speed * Time.deltaTime;
+
+            // if reached last seen location, reset it
+            if (Vector3.Distance(transform.position, lastSeenPlayerLocation) < 1.25f)
+            {
+                lastSeenPlayerLocation = new Vector3(999, 999);
+            }
         }
-        // otherwise deal damage to the player we're infront of
-        else
+        // dont see anything, follow waypoints
+        else if (closest_any_player == null == false)
         {
-            closest.GetComponent<Player>().playerhp -= 2 * Time.deltaTime;
+            // if path empty get new path
+            if (path.Count == 0)
+            {
+                path = Pathfinding.GetWayPoints(transform.position, closest_any_player.transform.position);
+            }
+            // go to next point in path
+            else
+            {
+                float speed = 2;
+                Vector3 dir = (path[0] - transform.position).normalized;
+                transform.position += dir * speed * Time.deltaTime;
+
+                // reached the point in the path, remove it from the path
+                if (Vector3.Distance(transform.position, path[0]) < 1.25f)
+                {
+                    path.RemoveAt(0);
+                }
+            }
         }
 
         if (hp <= 0)
         {
-            closest.GetComponent<Player>().money += 100;
+            closest_visible_player.GetComponent<Player>().money += 100;
             Debug.Log("money gained");
             Destroy(gameObject);
         }
