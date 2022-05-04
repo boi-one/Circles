@@ -47,8 +47,6 @@ public class Zombie : MonoBehaviour
             }
         }
 
-
-
         // if found a player that is visible
         if (closest_visible_player == null == false)
         {
@@ -58,7 +56,8 @@ public class Zombie : MonoBehaviour
             {
                 float speed = 2;
                 Vector3 dir = (closest_visible_player.transform.position - transform.position).normalized;
-                transform.position += dir * speed * Time.deltaTime;
+                if (barricadeCollision(transform.position + dir * speed * Time.deltaTime) == false)
+                    transform.position += dir * speed * Time.deltaTime;
 
                 Debug.DrawLine(transform.position, closest_visible_player.transform.position, Color.red);
             }
@@ -73,7 +72,8 @@ public class Zombie : MonoBehaviour
         {
             float speed = 2;
             Vector3 dir = (lastSeenPlayerLocation - transform.position).normalized;
-            transform.position += dir * speed * Time.deltaTime;
+            if (barricadeCollision(transform.position + dir * speed * Time.deltaTime) == false)
+                transform.position += dir * speed * Time.deltaTime;
             Debug.DrawLine(transform.position, lastSeenPlayerLocation, Color.green);
 
             // if reached last seen location, reset it
@@ -95,7 +95,8 @@ public class Zombie : MonoBehaviour
             {
                 float speed = 2;
                 Vector3 dir = (path[0] - transform.position).normalized;
-                transform.position += dir * speed * Time.deltaTime;
+                if (barricadeCollision(transform.position + dir * speed * Time.deltaTime) == false)
+                    transform.position += dir * speed * Time.deltaTime;
                 Debug.DrawLine(transform.position, path[0], Color.blue);
 
                 // reached the point in the path, remove it from the path
@@ -106,6 +107,30 @@ public class Zombie : MonoBehaviour
             }
         }
 
+        // get stuck on barricades and damage them
+        bool barricadeCollision(Vector3 nextpos)
+        {
+            foreach(Transform t in GameObject.Find("Map").transform.Find("Barricades"))
+            {
+                if (t.GetComponent<SpriteRenderer>().color.a <= 0f) continue;
+                if (t.GetComponent<SpriteMask>().bounds.Contains(nextpos))
+                {
+                    t.GetComponent<SpriteRenderer>().color = new Color(
+                        t.GetComponent<SpriteRenderer>().color.r,
+                        t.GetComponent<SpriteRenderer>().color.g,
+                        t.GetComponent<SpriteRenderer>().color.b,
+                        t.GetComponent<SpriteRenderer>().color.a - 0.1f * Time.deltaTime);
+
+                    Vector3 dir = (transform.position - nextpos).normalized;
+                    transform.position += dir * 4 * Time.deltaTime;
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // die
         if (hp <= 0)
         {
             closest_any_player.GetComponent<Player>().money += 100;

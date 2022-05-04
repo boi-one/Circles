@@ -87,7 +87,7 @@ public class Pathfinding : MonoBehaviour
     {
         while(Vector3.Distance(a, b) > 0.5f)
         {
-            if (GameObject.Find("Map").transform.Find("walls").GetComponent<Tilemap>().HasTile(GameObject.Find("Map").transform.Find("walls").GetComponent<Tilemap>().WorldToCell(a)))
+            if (GameObject.Find("Map").transform.Find("tilemap_walls").GetComponent<Tilemap>().HasTile(GameObject.Find("Map").transform.Find("tilemap_walls").GetComponent<Tilemap>().WorldToCell(a)))
                 return false;
 
             a += (b - a).normalized / 15f;

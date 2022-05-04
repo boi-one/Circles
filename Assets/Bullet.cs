@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
             other.GetComponent<Zombie>().hp -= 2;
             Destroy(gameObject);
         }
-        if (other.name == "walls")
+        if (other.name == "tilemap_walls")
         {
             Destroy(gameObject);
         }
