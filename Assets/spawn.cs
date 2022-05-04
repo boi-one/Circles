@@ -23,13 +23,34 @@ public class spawn : MonoBehaviour
             nextspawn = Time.time + cooldown;
             countup++;
         }
-        if(countup > 10)
+        //dit kan waarschijnlijk veel simpeler
+        if(countup > 5)
         {
             cooldown = 5;
         }
-        if (countup > 20)
+        if (countup > 10)
         {
             cooldown = 4;
+        }
+        if (countup > 15)
+        {
+            cooldown = 3.5f;
+        }
+        if (countup > 20)
+        {
+            cooldown = 3;
+        }
+        if (countup > 25)
+        {
+            cooldown = 2;
+        }
+        if (countup > 30)
+        {
+            cooldown = 1.5f;
+        }
+        if(countup > 40)
+        {
+            cooldown = 1;
         }
     }
 }

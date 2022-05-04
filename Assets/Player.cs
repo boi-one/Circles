@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public float speed;
-
 
     public float playerhp
     {
@@ -40,12 +40,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if(playerhp == 0)
+
+        if (_playerhp <= 0)
         {
-            
+            SceneManager.LoadScene("dead");
         }
-
-
         if (Input.GetKey(KeyCode.A))
         {
             //if (Physics2D.OverlapPointAll(transform.position + new Vector3(-speed, 0, 0) * Time.deltaTime).Any(c => c.name.StartsWith("Wall")) == false)
@@ -72,32 +71,24 @@ public class Player : MonoBehaviour
         transform.up = Direction; //weet niet waarom dit up is maar alles word fucked als je position gebruik
         //Debug.Log("X " + mousePos.x + "Y " + mousePos.y);
     }
-
-
-    /*
-    public void Shoot()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        GameObject bullet = Instantiate(bulletprefab, firepoint.position, firepoint.rotation);
-        bullet.GetComponent<BulletMovement>().targetDir =(bullet.transform.position += (Camera.main.ScreenToWorldPoint(Input.mousePosition) - bullet.transform.position));   
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.name == "Zombie" && touch == true)
+        if(other.name == "Healthpickup")
         {
-            touch = true;
-            if(Time.time > nextdamage)
+            if(money >= 600)
             {
-                playerhp -= 1;
-                nextdamage = Time.time + damagecooldown;
+                playerhp += 3;
+                money -= 600;
+                Debug.Log("hp up");
             }
-        }        
+        }
+        if (other.name == "upgrade")
+        {
+            if (money >= 4000)
+            {
+                gameObject.GetComponent<Shooting>().cooldown = 0.2f;
+                money -= 4000;
+            }
+        }
     }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        touch = false;
-    }
-    */
 }

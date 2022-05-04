@@ -6,6 +6,7 @@ using UnityEngine;
 public class Zombie : MonoBehaviour
 {
     public int hp = 6;
+    public AudioSource shot;
 
     List<GameObject> Players;
     void Start()
@@ -40,7 +41,7 @@ public class Zombie : MonoBehaviour
         // otherwise deal damage to the player we're infront of
         else
         {
-            closest.GetComponent<Player>().playerhp -= 10 * Time.deltaTime;
+            closest.GetComponent<Player>().playerhp -= 2 * Time.deltaTime;
         }
 
         if (hp <= 0)
