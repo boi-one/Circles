@@ -16,5 +16,16 @@ public class CameraFollow : MonoBehaviour
         dir.z = 0;
 
         transform.position += dir * speed * Time.deltaTime;
+
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            GetComponent<Camera>().orthographicSize *= 1.2f;
+        }
+        else if (Input.mouseScrollDelta.y > 0)
+        {
+            GetComponent<Camera>().orthographicSize /= 1.2f;
+        }
+        if (GetComponent<Camera>().orthographicSize < 5)
+            GetComponent<Camera>().orthographicSize = 5;
     }
 }

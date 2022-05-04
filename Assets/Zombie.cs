@@ -6,16 +6,13 @@ using UnityEngine;
 public class Zombie : MonoBehaviour
 {
     public int hp = 6;
-    private float nextdamage = 0;
-    public float damagecooldown;
-    bool dead = false;
 
     List<GameObject> Players;
     void Start()
     {
+        // find all players
         Players = GameObject.FindObjectsOfType<GameObject>().Where(c => c.GetComponent<Player>() != null).ToList();
     }
-
 
     void Update()
     {
@@ -34,7 +31,7 @@ public class Zombie : MonoBehaviour
         }
 
         // walk  towards closest player, if not close already
-        if (closestDist > 1f)
+        if (closestDist > 1.25f)
         {
             float speed = 2;
             Vector3 dir = (closest.transform.position - transform.position).normalized;
@@ -43,22 +40,14 @@ public class Zombie : MonoBehaviour
         // otherwise deal damage to the player we're infront of
         else
         {
-            if (Time.time > nextdamage)
-            {
-                  GetComponent<Player>().playerhp -= 1;
-                  nextdamage = Time.time + damagecooldown;   
-            }
+            closest.GetComponent<Player>().playerhp -= 10 * Time.deltaTime;
         }
-        if(hp <= 0)
-        {
-            Destroy(gameObject);
-            dead = true;
-            if (dead == true)
-            {
-                GetComponent<Player>().money += 100;
 
-                Debug.Log("money");
-            }
+        if (hp <= 0)
+        {
+            closest.GetComponent<Player>().money += 100;
+            Debug.Log("money gained");
+            Destroy(gameObject);
         }
     }
 }

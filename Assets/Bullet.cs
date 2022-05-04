@@ -2,16 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class destroy : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public GameObject blood;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if(transform.position.x > 20)
@@ -35,9 +29,7 @@ public class destroy : MonoBehaviour
     {
         if (other.name == "Zombie(Clone)")
         {
-            Instantiate(blood);
-            blood.transform.transform.position = transform.position;
-            blood.transform.rotation = transform.rotation;
+            Instantiate(blood, transform.position, transform.rotation);
             other.GetComponent<Zombie>().hp -= 2;
             Destroy(gameObject);
         }
