@@ -6,8 +6,29 @@ using System.Linq;
 public class Player : MonoBehaviour
 {
     public float speed;
-    public float playerhp = 10;
-    public int money = 0;
+
+
+    public float playerhp
+    {
+        get { return _playerhp; }
+        set
+        {
+            _playerhp = value;
+            GameObject.Find("HUD").transform.Find("Health").GetComponent<TMPro.TMP_Text>().text = value.ToString();
+        }
+    }
+    float _playerhp = 10;
+
+    public int money
+    {
+        get { return _money; }
+        set
+        {
+            _money = value;
+            GameObject.Find("HUD").transform.Find("Cash").GetComponent<TMPro.TMP_Text>().text = "$ " + value;
+        }
+    }
+    int _money = 0;
 
 
     // Start is called before the first frame update
