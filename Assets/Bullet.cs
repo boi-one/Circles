@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.name == "Zombie(Clone)")
         {
+            other.GetComponent<Zombie>().shot.Play();
             Instantiate(blood, transform.position, transform.rotation);
             other.GetComponent<Zombie>().hp -= 2;
             Destroy(gameObject);

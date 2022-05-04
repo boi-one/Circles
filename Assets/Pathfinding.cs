@@ -36,7 +36,15 @@ public class Pathfinding : MonoBehaviour
     /// <returns></returns>
     public static List<Vector3> GetWayPoints(Vector3 current, Vector3 end)
     {
-        List<Vector3> available = WayPoints;
+        List<Vector3> available = new List<Vector3>();
+        foreach(Vector3 wp in WayPoints)
+        {
+            if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
+                available.Insert(0, wp);
+            else
+                available.Add(wp);
+        }
+
         List<Vector3> chosenPoints = new List<Vector3>();
         List<Vector3> tupik = new List<Vector3>();
 
