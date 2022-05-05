@@ -13,17 +13,7 @@ public class Pathfinding : MonoBehaviour
         {
             WayPoints.Add(t.position);
         }
-
-        Vector3 sp = new Vector3(-9.5f, 5.2f);
-
-        List<Vector3> result = GetWayPoints(sp, new Vector3(-5.5f,14.12f));
-        foreach (Vector3 c in result)
-            Debug.Log(c);
-
-        Debug.DrawLine(sp, sp+ new Vector3(1, 1), Color.green, 50f);
-        Debug.DrawLine(new Vector3(-5.5f, 14.12f), new Vector3(-5.5f, 14.12f) + new Vector3(1, 1), Color.green, 50f);
     }
-
 
     public static List<Vector3> WayPoints;
 

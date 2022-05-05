@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Shooting : MonoBehaviour
+public class Shooting : NetworkBehaviour
 {
     public float cooldown;
     private float nextfire = 0;
@@ -15,30 +16,28 @@ public class Shooting : MonoBehaviour
     Vector2 dir;
     float angle;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        if (isLocalPlayer == false) return;
+
         if(Time.time > nextfire)
         {
             if (Input.GetMouseButton(0))
             {
-                Shoot();
+                CmdShoot();
                 nextfire = Time.time + cooldown;
             }
         }
-        
         
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //Vector2 dir = mousePos - rb.position;
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
     }
 
+
+
+    [Command] void CmdShoot() => RpcShoot();
+    [ClientRpc] void RpcShoot() => Shoot();
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);

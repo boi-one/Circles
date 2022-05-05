@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class spawn : MonoBehaviour
+public class spawn : NetworkBehaviour
 {
     public float cooldown = 6;
-    private float nextspawn = 0;
+    private float nextspawn = 6;
     int countup = 0;
     public GameObject zombieprefab;
     // Start is called before the first frame update
@@ -17,9 +18,12 @@ public class spawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isServer == false) return;
+
         if(Time.time > nextspawn)
         {
-            Instantiate(zombieprefab, transform.position, transform.rotation);
+            GameObject made = Instantiate(zombieprefab, transform.position, transform.rotation);
+            NetworkServer.Spawn(made);
             nextspawn = Time.time + cooldown;
             countup++;
         }

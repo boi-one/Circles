@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    Transform Player;
-    void Start()
+    Transform Target;
+    public void SetTarget(Transform t)
     {
-        Player = GameObject.Find("Player").transform;
+        Target = t;
     }
+
     void Update()
     {
-        float speed = 0.5f * Mathf.Pow(Vector3.Distance(Player.position, transform.position),2);
-        Vector3 dir = (Player.position - transform.position).normalized;
+        if (Target == null) return;
+
+        float speed = 0.5f * Mathf.Pow(Vector3.Distance(Target.position, transform.position),2);
+        Vector3 dir = (Target.position - transform.position).normalized;
         dir.z = 0;
 
         transform.position += dir * speed * Time.deltaTime;
