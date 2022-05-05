@@ -2005,9 +2005,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   upgrade: {fileID: 212022755}
-  upgradetext: {fileID: 0}
+  upgradetext: {fileID: 71664921}
   speedupgrade: {fileID: 1205852539}
-  speedupgradetext: {fileID: 0}
+  speedupgradetext: {fileID: 1489473375}
 --- !u!212 &1050675933
 SpriteRenderer:
   m_ObjectHideFlags: 0
