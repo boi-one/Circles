@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float speed;
+    public GameObject upgrade;
+    public GameObject upgradetext;
+    public GameObject speedupgrade;
+    public GameObject speedupgradetext;
 
     public float playerhp
     {
@@ -37,7 +41,6 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("dead");
         }
-
         if (Input.GetKey(KeyCode.A))
         {
             if (CheckIfAllowedPosition(transform.position + new Vector3(-speed, 0, 0) * Time.deltaTime))
@@ -57,6 +60,10 @@ public class Player : MonoBehaviour
         {
             if (CheckIfAllowedPosition(transform.position + new Vector3(0,-speed, 0) * Time.deltaTime))
             transform.position += new Vector3(0, -speed, 0) * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
         }
 
 
@@ -104,6 +111,18 @@ public class Player : MonoBehaviour
             {
                 gameObject.GetComponent<Shooting>().cooldown = 0.2f;
                 money -= 4000;
+                Destroy(upgrade);
+                Destroy(upgradetext);
+            }
+        }
+        if (other.name == "runfaster")
+        {
+            if(money >= 1000)
+            {
+                speed = 7;
+                money -= 1000;
+                Destroy(speedupgrade);
+                Destroy(speedupgradetext);
             }
         }
     }

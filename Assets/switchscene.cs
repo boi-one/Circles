@@ -9,4 +9,8 @@ public class switchscene : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void bruh2()
+    {
+        Application.Quit();
+    }
 }

@@ -8,22 +8,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        if(transform.position.x > 20)
-        {
-            Destroy(gameObject);
-        }
-        if (transform.position.x < -20)
-        {
-            Destroy(gameObject);
-        }
-        if (transform.position.y > 20)
-        {
-            Destroy(gameObject);
-        }
-        if (transform.position.y < -20)
-        {
-            Destroy(gameObject);
-        }
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -32,23 +32,23 @@ public class spawn : MonoBehaviour
         {
             cooldown = 4;
         }
-        if (countup > 15)
+        if (countup > 20)
         {
             cooldown = 3.5f;
         }
-        if (countup > 20)
+        if (countup > 30)
         {
             cooldown = 3;
         }
-        if (countup > 25)
+        if (countup > 40)
         {
             cooldown = 2;
         }
-        if (countup > 30)
+        if (countup > 50)
         {
             cooldown = 1.5f;
         }
-        if(countup > 40)
+        if(countup > 60)
         {
             cooldown = 1;
         }
