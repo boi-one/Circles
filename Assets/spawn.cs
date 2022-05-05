@@ -42,6 +42,7 @@ public class spawn : MonoBehaviour
         }
         if (countup > 40)
         {
+            StartCoroutine(Wait());
             cooldown = 2;
         }
         if (countup > 50)
@@ -50,7 +51,12 @@ public class spawn : MonoBehaviour
         }
         if(countup > 60)
         {
+            StartCoroutine(Wait());
             cooldown = 1;
         }
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(12);
     }
 }
